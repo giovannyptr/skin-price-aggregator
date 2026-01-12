@@ -69,4 +69,54 @@ All marketplaces return listings in the same structure:
   "currency": "USD",
   "url": "https://...",
   "lastUpdated": "ISO timestamp"
-}
+} 
+
+```
+
+### 4. Pricing Logic
+
+Pricing logic is separated into a dedicated service:
+
+- Cheapest listing is selected by the lowest price
+
+- Best deal uses a simple price-based scoring method, designed to be easily extended later
+
+- This keeps business logic isolated and testable.
+
+### 5. Caching
+
+A lightweight in-memory cache with a 60-second TTL is implemented to:
+
+- Reduce repeated marketplace calls
+
+- Improve response time
+
+- Avoid unnecessary external load
+
+### 6. Mock Marketplaces (Intentional)
+
+For this exercise, marketplace integrations are mocked to focus on:
+
+- Architecture
+
+- Aggregation logic
+
+- Failure handling
+
+- Extensibility
+
+The marketplace layer is intentionally designed so real API or scraping logic can be added without touching core services.
+
+## ➕ Adding a New Marketplace
+
+To add a new marketplace:
+
+- Create a new file in marketplaces/
+
+- Extend MarketplaceScraper
+
+- Implement fetchPrices(itemName)
+
+- Register the scraper in marketplaces/index.js
+
+- No changes are required in aggregation, scoring, or API logic.
